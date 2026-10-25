@@ -1,5 +1,6 @@
 package com.captain.helpdesk.controller;
 
+import com.captain.helpdesk.dto.TicketResponseDTO;
 import com.captain.helpdesk.entity.Ticket;
 import com.captain.helpdesk.repository.TicketRepository;
 import com.captain.helpdesk.services.TicketService;
@@ -20,18 +21,18 @@ public class TicketController {
     }
 
     @GetMapping("/tickets")
-    public List<Ticket> getTickets() {
+    public List<TicketResponseDTO> getTickets() {
         return ticketService.getAllTickets();
     }
 
     @GetMapping("/tickets/{id}")
-    public Ticket getTicketById(@PathVariable long id) {
+    public TicketResponseDTO getTicketById(@PathVariable Long id) {
         return ticketService.getTicketById(id);
     }
 
     @PostMapping("/tickets")
-    public Ticket createTicket(@RequestBody Ticket ticket) {
-        return ticketService.createTicket(ticket);
+    public TicketResponseDTO createTicket(@RequestBody Ticket ticket, @RequestParam Long userId) {
+        return ticketService.createTicket(ticket, userId);
     }
 
     @PutMapping("/tickets/{id}")

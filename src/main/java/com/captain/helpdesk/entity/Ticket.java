@@ -3,7 +3,7 @@ package com.captain.helpdesk.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+
 
 @Entity
 @Table(name = "tickets")
@@ -19,6 +19,10 @@ public class Ticket {
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
 
     public Long getId() {
@@ -41,6 +45,12 @@ public class Ticket {
     }
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @PrePersist
