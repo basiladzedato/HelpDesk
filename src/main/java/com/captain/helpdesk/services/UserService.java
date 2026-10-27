@@ -1,6 +1,7 @@
 package com.captain.helpdesk.services;
 
 
+import com.captain.helpdesk.entity.Role;
 import com.captain.helpdesk.entity.User;
 import com.captain.helpdesk.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,8 @@ public class UserService {
         if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             throw new IllegalArgumentException("Username already exists");
         }
+
+        user.setRole(Role.USER);
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);

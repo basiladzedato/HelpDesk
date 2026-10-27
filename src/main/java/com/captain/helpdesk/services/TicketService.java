@@ -2,6 +2,7 @@ package com.captain.helpdesk.services;
 
 import com.captain.helpdesk.dto.TicketResponseDTO;
 import com.captain.helpdesk.entity.Ticket;
+import com.captain.helpdesk.entity.TicketStatus;
 import com.captain.helpdesk.entity.User;
 import com.captain.helpdesk.repository.TicketRepository;
 import com.captain.helpdesk.repository.UserRepository;
@@ -35,6 +36,8 @@ public class TicketService {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new IllegalArgumentException(("User not Found")));
         ticket.setUser(user);
 
+        ticket.setStatus(TicketStatus.OPEN);
+
         Ticket savedTicket = ticketRepository.save(ticket);
         return toDTO(savedTicket);
     }
@@ -61,6 +64,24 @@ public class TicketService {
         dto.setUserId(ticket.getUser().getId());
         dto.setUsername(ticket.getUser().getUsername());
 
+        dto.setStatus(ticket.getStatus());
+
         return dto;
+    }
+
+    public List<TicketResponseDTO> getTicketsForUser(String username) {
+        return ticketRepository
+                .findByUserUsername(username)
+                .stream()
+                .map(this::toDTO)
+                .toList();
+    }
+
+    public TicketResponseDTO changeStatus(Long id, TicketStatus status) {
+        Ticket ticket = ticketRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Ticket not found"));
+        ticket.setStatus(status);
+
+        return toDTO(ticketRepository.save(ticket));
     }
 }

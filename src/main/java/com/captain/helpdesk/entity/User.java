@@ -30,6 +30,11 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Ticket> tickets;
 
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
     public Long getId() {
         return id;
     }
@@ -52,5 +57,13 @@ public class User {
 
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

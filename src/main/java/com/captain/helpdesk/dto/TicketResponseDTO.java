@@ -1,5 +1,7 @@
 package com.captain.helpdesk.dto;
 
+import com.captain.helpdesk.entity.TicketStatus;
+
 import java.time.LocalDateTime;
 
 public class TicketResponseDTO {
@@ -9,6 +11,7 @@ public class TicketResponseDTO {
     private LocalDateTime createdAt;
     private Long userId;
     private String username;
+    private TicketStatus status;
 
     public Long getId() {
         return id;
@@ -56,5 +59,13 @@ public class TicketResponseDTO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public TicketStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TicketStatus status) {
+        this.status = status;
     }
 }
