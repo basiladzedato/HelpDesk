@@ -5,6 +5,7 @@ import com.captain.helpdesk.entity.Ticket;
 import com.captain.helpdesk.entity.TicketStatus;
 import com.captain.helpdesk.repository.TicketRepository;
 import com.captain.helpdesk.services.TicketService;
+import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -43,7 +44,7 @@ public class TicketController {
     }
 
     @PostMapping("/tickets")
-    public TicketResponseDTO createTicket(@RequestBody Ticket ticket, Authentication authentication) {
+    public TicketResponseDTO createTicket(@Valid @RequestBody Ticket ticket, Authentication authentication) {
         return ticketService.createTicket(ticket, authentication.getName());
     }
 

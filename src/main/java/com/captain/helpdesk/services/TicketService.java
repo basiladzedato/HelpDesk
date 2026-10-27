@@ -4,6 +4,7 @@ import com.captain.helpdesk.dto.TicketResponseDTO;
 import com.captain.helpdesk.entity.Ticket;
 import com.captain.helpdesk.entity.TicketStatus;
 import com.captain.helpdesk.entity.User;
+import com.captain.helpdesk.exception.TicketNotFoundException;
 import com.captain.helpdesk.repository.TicketRepository;
 import com.captain.helpdesk.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class TicketService {
 
     public TicketResponseDTO getTicketById(Long id) {
         Ticket ticket = ticketRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException(("Ticket Not Found")));
+                .orElseThrow(() -> new TicketNotFoundException(("Ticket Not Found")));
         return toDTO(ticket);
     }
 
