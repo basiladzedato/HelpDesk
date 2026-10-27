@@ -39,8 +39,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/register-user", "/login").permitAll().anyRequest().authenticated())
                 .formLogin(form -> form.loginProcessingUrl("/login").successHandler(((request, response, authentication) -> response.setStatus(HttpServletResponse.SC_OK)))
                         .failureHandler((request, response, authentication) ->
-                                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED)).permitAll())
-                .httpBasic(Customizer.withDefaults());
+                                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED)).permitAll());
         return http.build();
     }
 
