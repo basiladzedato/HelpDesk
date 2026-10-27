@@ -4,6 +4,7 @@ import com.captain.helpdesk.dto.TicketResponseDTO;
 import com.captain.helpdesk.entity.Ticket;
 import com.captain.helpdesk.repository.TicketRepository;
 import com.captain.helpdesk.services.TicketService;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +32,8 @@ public class TicketController {
     }
 
     @PostMapping("/tickets")
-    public TicketResponseDTO createTicket(@RequestBody Ticket ticket, @RequestParam Long userId) {
-        return ticketService.createTicket(ticket, userId);
+    public TicketResponseDTO createTicket(@RequestBody Ticket ticket, Authentication authentication) {
+        return ticketService.createTicket(ticket, authentication.getName());
     }
 
     @PutMapping("/tickets/{id}")

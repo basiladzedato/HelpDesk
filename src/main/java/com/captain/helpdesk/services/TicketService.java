@@ -5,7 +5,6 @@ import com.captain.helpdesk.entity.Ticket;
 import com.captain.helpdesk.entity.User;
 import com.captain.helpdesk.repository.TicketRepository;
 import com.captain.helpdesk.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,8 +31,8 @@ public class TicketService {
         return toDTO(ticket);
     }
 
-    public TicketResponseDTO createTicket(Ticket ticket, Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException(("User not Found")));
+    public TicketResponseDTO createTicket(Ticket ticket, String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new IllegalArgumentException(("User not Found")));
         ticket.setUser(user);
 
         Ticket savedTicket = ticketRepository.save(ticket);
